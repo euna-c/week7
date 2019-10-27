@@ -6,8 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Role;
 import models.User;
 import services.UserService;
+import services.RoleService;
 
 public class UserServlet extends HttpServlet {
 
@@ -62,10 +64,18 @@ public class UserServlet extends HttpServlet {
         }
         break;
       }
-    }
-
+    } 
+    
     try {
       request.setAttribute("users", us.getAll());
+    } catch (Exception e) {
+      request.setAttribute("error", e.getMessage());
+    }
+    //Originally this shoud be in RoleServlet.... 
+    RoleService rs = new RoleService();
+    try {
+        //this "roles" is called in jsp dropbox forEach condition as item="${roles}
+      request.setAttribute("roles", rs.getAll());
     } catch (Exception e) {
       request.setAttribute("error", e.getMessage());
     }
@@ -90,22 +100,33 @@ public class UserServlet extends HttpServlet {
     String fname = request.getParameter("fname");
     String lname = request.getParameter("lname");
     String password = request.getParameter("password");
-
+    //check
+    //String roleString = request.getParameter("role");
+   
+    int roleID = Integer.parseInt(request.getParameter("rolerole"));
+    
+    
     String action = request.getParameter("action");
     action = action == null ? "" : action;
+    
+    
 
     try {
       switch (action) {
         case "add":
           if (checkIsValid(new String[]{email, fname, lname, password})) {
-            us.insert(email, fname, lname, password);
-          } else {
+            us.insert(email, fname, lname, password, roleID);
+          } else 
+          {
             request.setAttribute("error", "All fields are required");
           }
         case "edit":
-          if (checkIsValid(new String[]{email, fname, lname})) {
-            us.update(email, fname, lname, password);
-          } else {
+          if (checkIsValid(new String[]{email, fname, lname, password})) 
+          {
+            us.update(email, fname, lname, password, roleID);
+          } 
+          else 
+          {
             request.setAttribute("error", "All fields are required");
           }
       }

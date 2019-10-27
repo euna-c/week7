@@ -61,6 +61,13 @@
             placeholder="Password"
             required
             />
+           
+          
+          <select class="input-dark" name="rolerole">
+            <c:forEach items="${roles}" var="rolerole">
+                <option value="${rolerole.roleID}">${rolerole.roleName}</option>
+            </c:forEach> 
+          </select>
           <input type="hidden" name="action" value="add" />
           <input class="input-primary" type="submit" value="Save"/>
         </form>
@@ -143,6 +150,21 @@
             value="${user.password}"
             placeholder="Password"
             />
+          
+          <select class="input-dark" name="rolerole">
+            <c:forEach items="${roles}" var="rolerole">
+                  <c:choose> 
+                      <%--user.role.roleID is from a specific user, rolerole.roleID is from RoleDB list from getAll in UserService --%>
+                    <c:when test="${user.role.roleID eq rolerole.roleID}">
+                       <option value="${rolerole.roleID}" selected>${rolerole.roleName}</option>
+                    </c:when> 
+                    <c:otherwise>
+                       <option value="${rolerole.roleID}">${rolerole.roleName}</option>
+                    </c:otherwise>
+                 </c:choose> 
+            </c:forEach> 
+          </select>
+         
             <input type="hidden" name="action" value="edit" />
             <input class="mb-0 input-primary" type="submit" value="Save"/>
             <a href="/users?action=clearEdit">

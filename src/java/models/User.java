@@ -11,11 +11,13 @@ public class User implements Serializable {
     String password;
     Role role;
 
-    public User() {
+    public User() 
+    {
         active = true;
     }
 
-    public User(String email, String fname, String lname, String password, Role role) {
+    public User(String email, String fname, String lname, String password, Role role) 
+    {
         this.active = true;
         this.email = email;
         this.fname = fname;
@@ -76,7 +78,8 @@ public class User implements Serializable {
     
     @Override
     public String toString() {
-        return "User{" + "active=" + active + ", email=" + email + ", fname=" + fname + ", lname=" + lname + ", password=" + password + '}';
+        
+        return "User{" + "active=" + active + ", email=" + email + ", fname=" + fname + ", lname=" + lname + ", password=" + password +", role="+role+'}';
     }
 
 }

@@ -86,14 +86,14 @@ public class RoleDB {
             connectionPool = ConnectionPool.getInstance();
             connection = connectionPool.getConnection();
 
-            String preparedQuery = "UPDATE role_table set RoleID = ?, RoleName = ?";
+            String preparedQuery = "UPDATE role_table set RoleName = ? WHERE RoleID = ?";
             int successCount = 0;
-
+            
             PreparedStatement statement = connection.prepareStatement(preparedQuery);
       
-            statement.setInt(1, role.getRoleID());
-            statement.setString(2, role.getRoleName());
-
+            statement.setString(1, role.getRoleName());
+            statement.setInt(2, role.getRoleID());
+            
             successCount = statement.executeUpdate();
             statement.close();
             return successCount;

@@ -4,7 +4,6 @@ import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import java.sql.*;
-
 /**
  * 
  * @author Ayden and David
